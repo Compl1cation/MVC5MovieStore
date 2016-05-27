@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "MenuPartial";
+}
+<br /><br />
+<div class="row" id="center">
+
+    <ul id="ul-menu">
+        <li id="li-menu">
+            @Html.ActionLink("Movies", "Index", "BrowseMovie", null, new { @id="menu" })
+            <span class="glyphicon glyphicon-film"></span>
+        </li>
+        <li id="li-menu">
+            @Html.ActionLink("Directors", "Index", "BrowseDirectors", null, new { @id = "menu" })
+            <span class="glyphicon glyphicon-user"></span>
+        </li>
+        <li id="li-menu">
+            @Html.ActionLink("Years", "Index", "BrowseYears", null, new { @id = "menu" })
+            <span class="glyphicon glyphicon-calendar"></span>
+        </li>
+        <li id="li-menu">
+            @Html.ActionLink("About", "Index", "BrowseAbout", null, new { @id = "menu" })
+            <span class="glyphicon glyphicon-info-sign"></span>
+        </li>
+    </ul>
+</div>
+

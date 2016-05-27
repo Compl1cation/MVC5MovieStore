@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+    <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+    <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CartItems">
+    <Key>
+      <PropertyRef Name="ItemId" />
+    </Key>
+    <Property Name="ItemId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="CartId" Type="nvarchar(max)" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="MovieId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Carts">
+    <Key>
+      <PropertyRef Name="RecordId" />
+    </Key>
+    <Property Name="RecordId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CartId" Type="nvarchar(max)" />
+    <Property Name="MovieId" Type="int" Nullable="false" />
+    <Property Name="Count" Type="int" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Directors">
+    <Key>
+      <PropertyRef Name="DirectorId" />
+    </Key>
+    <Property Name="DirectorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GenreMovies">
+    <Key>
+      <PropertyRef Name="Genre_GenreId" />
+      <PropertyRef Name="Movie_MovieId" />
+    </Key>
+    <Property Name="Genre_GenreId" Type="int" Nullable="false" />
+    <Property Name="Movie_MovieId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Genres">
+    <Key>
+      <PropertyRef Name="GenreId" />
+    </Key>
+    <Property Name="GenreId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="300" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Movies">
+    <Key>
+      <PropertyRef Name="MovieId" />
+    </Key>
+    <Property Name="MovieId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DirectorId" Type="int" Nullable="false" />
+    <Property Name="YearRangeId" Type="int" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Price" Type="float" Nullable="false" />
+    <Property Name="Year" Type="int" Nullable="false" />
+    <Property Name="Rating" Type="int" Nullable="false" />
+    <Property Name="MoviePosterURL" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrderDetails">
+    <Key>
+      <PropertyRef Name="OrderDetailId" />
+    </Key>
+    <Property Name="OrderDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderId" Type="int" Nullable="false" />
+    <Property Name="MovieId" Type="int" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+    <Property Name="UnitPrice" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="OrderId" />
+    </Key>
+    <Property Name="OrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderDate" Type="datetime" Nullable="false" />
+    <Property Name="Username" Type="nvarchar(max)" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="160" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="160" Nullable="false" />
+    <Property Name="Address" Type="nvarchar" MaxLength="70" Nullable="false" />
+    <Property Name="City" Type="nvarchar" MaxLength="40" Nullable="false" />
+    <Property Name="State" Type="nvarchar" MaxLength="40" Nullable="false" />
+    <Property Name="PostalCode" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Country" Type="nvarchar" MaxLength="40" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="24" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Total" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="YearRanges">
+    <Key>
+      <PropertyRef Name="YearRangeId" />
+    </Key>
+    <Property Name="YearRangeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Range" Type="nvarchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_dbo_CartItems_dbo_Movies_MovieId">
+    <End Role="Movies" Type="Self.Movies" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="CartItems" Type="Self.CartItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Movies">
+        <PropertyRef Name="MovieId" />
+      </Principal>
+      <Dependent Role="CartItems">
+        <PropertyRef Name="MovieId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Carts_dbo_Movies_MovieId">
+    <End Role="Movies" Type="Self.Movies" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Carts" Type="Self.Carts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Movies">
+        <PropertyRef Name="MovieId" />
+      </Principal>
+      <Dependent Role="Carts">
+        <PropertyRef Name="MovieId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_GenreMovies_dbo_Genres_Genre_GenreId">
+    <End Role="Genres" Type="Self.Genres" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="GenreMovies" Type="Self.GenreMovies" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Genres">
+        <PropertyRef Name="GenreId" />
+      </Principal>
+      <Dependent Role="GenreMovies">
+        <PropertyRef Name="Genre_GenreId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_GenreMovies_dbo_Movies_Movie_MovieId">
+    <End Role="Movies" Type="Self.Movies" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="GenreMovies" Type="Self.GenreMovies" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Movies">
+        <PropertyRef Name="MovieId" />
+      </Principal>
+      <Dependent Role="GenreMovies">
+        <PropertyRef Name="Movie_MovieId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Movies_dbo_Directors_DirectorId">
+    <End Role="Directors" Type="Self.Directors" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Movies" Type="Self.Movies" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Directors">
+        <PropertyRef Name="DirectorId" />
+      </Principal>
+      <Dependent Role="Movies">
+        <PropertyRef Name="DirectorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Movies_dbo_YearRanges_YearRangeId">
+    <End Role="YearRanges" Type="Self.YearRanges" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Movies" Type="Self.Movies" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="YearRanges">
+        <PropertyRef Name="YearRangeId" />
+      </Principal>
+      <Dependent Role="Movies">
+        <PropertyRef Name="YearRangeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_OrderDetails_dbo_Movies_MovieId">
+    <End Role="Movies" Type="Self.Movies" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Movies">
+        <PropertyRef Name="MovieId" />
+      </Principal>
+      <Dependent Role="OrderDetails">
+        <PropertyRef Name="MovieId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_OrderDetails_dbo_Orders_OrderId">
+    <End Role="Orders" Type="Self.Orders" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="OrderId" />
+      </Principal>
+      <Dependent Role="OrderDetails">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Model3StoreContainer">
+    <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CartItems" EntityType="Self.CartItems" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Carts" EntityType="Self.Carts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Directors" EntityType="Self.Directors" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GenreMovies" EntityType="Self.GenreMovies" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Genres" EntityType="Self.Genres" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Movies" EntityType="Self.Movies" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="YearRanges" EntityType="Self.YearRanges" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_dbo_CartItems_dbo_Movies_MovieId" Association="Self.FK_dbo_CartItems_dbo_Movies_MovieId">
+      <End Role="Movies" EntitySet="Movies" />
+      <End Role="CartItems" EntitySet="CartItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Carts_dbo_Movies_MovieId" Association="Self.FK_dbo_Carts_dbo_Movies_MovieId">
+      <End Role="Movies" EntitySet="Movies" />
+      <End Role="Carts" EntitySet="Carts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_GenreMovies_dbo_Genres_Genre_GenreId" Association="Self.FK_dbo_GenreMovies_dbo_Genres_Genre_GenreId">
+      <End Role="Genres" EntitySet="Genres" />
+      <End Role="GenreMovies" EntitySet="GenreMovies" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_GenreMovies_dbo_Movies_Movie_MovieId" Association="Self.FK_dbo_GenreMovies_dbo_Movies_Movie_MovieId">
+      <End Role="Movies" EntitySet="Movies" />
+      <End Role="GenreMovies" EntitySet="GenreMovies" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Movies_dbo_Directors_DirectorId" Association="Self.FK_dbo_Movies_dbo_Directors_DirectorId">
+      <End Role="Directors" EntitySet="Directors" />
+      <End Role="Movies" EntitySet="Movies" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Movies_dbo_YearRanges_YearRangeId" Association="Self.FK_dbo_Movies_dbo_YearRanges_YearRangeId">
+      <End Role="YearRanges" EntitySet="YearRanges" />
+      <End Role="Movies" EntitySet="Movies" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_OrderDetails_dbo_Movies_MovieId" Association="Self.FK_dbo_OrderDetails_dbo_Movies_MovieId">
+      <End Role="Movies" EntitySet="Movies" />
+      <End Role="OrderDetails" EntitySet="OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_OrderDetails_dbo_Orders_OrderId" Association="Self.FK_dbo_OrderDetails_dbo_Orders_OrderId">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="OrderDetails" EntitySet="OrderDetails" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

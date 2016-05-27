@@ -1,0 +1,29 @@
+﻿@model MVC5MovieStore.Models.Order
+
+@{
+    ViewBag.Title = "AddressAndPayment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <h2>Address And Payment</h2>
+    <fieldset>
+        <legend>Shipping Information</legend>
+        @Html.EditorForModel()
+    </fieldset>
+<br />
+    <input type="submit" value="Submit Order" />
+}
+<br />
+<br />
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

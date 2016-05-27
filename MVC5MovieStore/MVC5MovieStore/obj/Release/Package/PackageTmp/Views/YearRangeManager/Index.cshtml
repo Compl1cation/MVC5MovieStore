@@ -1,0 +1,58 @@
+﻿@model IEnumerable<MVC5MovieStore.Models.YearRange>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    SortingInfo info = ViewBag.SortingInfo;
+}
+
+<script src="/Scripts/jquery-1.4.4.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="@Url.Content("/Scripts/MyScripts.js")"></script>
+
+<h2>Years</h2>
+<br />
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm("Index", "YearRangeManager", FormMethod.Post))
+{
+    @Html.Hidden("SortField", info.SortField)
+    @Html.Hidden("SortDirection", info.SortDirection)
+
+
+    <table class="table">
+        <tr>
+            <th>
+                <a href="#" data-sortfield="Range" class="header">Title</a>
+            </th>
+
+        @foreach (var item in Model)
+        {
+            <tr id="trp">
+                <td>@item.Range</td>
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.YearRangeId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.YearRangeId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.YearRangeId }) |
+                </td>
+
+            </tr>
+        }
+        <tr>
+            <td colspan="6">
+                @for (var i = 0; i < info.PageCount; i++)
+                {
+                    if (i == info.CurrentPageIndex)
+                    {
+                        <span>@(i + 1)</span>
+                    }
+                    else
+                    {
+                        <a href="#" data-pageindex="@i" class="pager">@(i + 1)</a>
+                    }
+                }
+            </td>
+        </tr>
+    </table>
+}

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<MVC5MovieStore.Models.Movie>
+@using System.Data.Entity;
+@using System.Linq;
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Movies for selected years: @Model.First().YearRange.Range</h2>
+
+<div id="content">
+    @foreach (var item in Model)
+    {
+        <div id="moviebox">
+            <dl id="movieboxUl">
+                @if (item.Files.Any(f => f.FileType == FileType.Poster))
+                {
+
+                    <dt id="center">
+                        <img src="~/File?id=@item.Files.First( f => f.FileType == FileType.Poster).FileId" alt="poster" id="posterimg" />
+                    </dt>
+                }
+                <dt id="title">
+
+                    @Html.DisplayFor(modelItem => item.Title)
+                </dt>
+                <dt>
+                    @Html.Raw("Price:  $")@Html.DisplayFor(modelItem => item.Price)
+                </dt>
+                <dt>
+                    @Html.Raw("Rating: ")
+                    @Html.DisplayFor(modelItem => item.Rating)@Html.Raw("/10")
+                </dt>
+            </dl>
+            <div id="addcartDiv">
+                <a class="addCart" href="@Url.Action("Details", "BrowseMovies", new { id = Html.AttributeEncode(item.MovieId)} )" title="Details">Details<span class="glyphicon glyphicon-info-sign"></span></a>
+                <br />
+                <a class="addCart" href="@Url.Action("AddToCart", "ShoppingCart", new { id = Html.AttributeEncode(item.MovieId)} )" title="Add to Cart">Add to Cart<span class="glyphicon glyphicon-shopping-cart"></span></a>
+            </div>
+        </div>
+
+    }
+</div>
+

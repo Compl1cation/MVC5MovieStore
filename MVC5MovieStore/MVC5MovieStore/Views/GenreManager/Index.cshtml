@@ -1,0 +1,64 @@
+﻿@model IEnumerable<MVC5MovieStore.Models.Genre>
+
+@{
+    ViewBag.Title = "Index";
+    SortingInfo info = ViewBag.SortingInfo;
+}
+
+<h2>Genre Manager</h2>
+
+<script src="/Scripts/jquery-1.4.4.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="@Url.Content("/Scripts/MyScripts.js")"></script>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+
+@using (Html.BeginForm("Index", "GenreManager", FormMethod.Post))
+{
+    @Html.Hidden("SortField", info.SortField)
+    @Html.Hidden("SortDirection", info.SortDirection)
+    @Html.Hidden("PageCount", info.PageCount)
+    @Html.Hidden("PageSize", info.PageSize)
+    @Html.Hidden("CurrentPageIndex", info.CurrentPageIndex)
+
+    <table class="table">
+        <tr>
+            <th>
+                <a href="#" data-sortfield="Name" class="header">Genre</a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Description</td>
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.GenreId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.GenreId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.GenreId }) |
+                </td>
+            </tr>
+        }
+        <tr>
+            <td colspan="6">
+                @for (var i = 0; i < info.PageCount; i++)
+                {
+                    if (i == info.CurrentPageIndex)
+                    {
+                        <span>@(i + 1)</span>
+                    }
+                    else
+                    {
+                        <a href="#" data-pageindex="@i" class="pager">@(i + 1)</a>
+                    }
+                }
+            </td>
+        </tr>
+    </table>
+}

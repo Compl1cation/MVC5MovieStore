@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+    <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+    <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Directors">
+    <Key>
+      <PropertyRef Name="DirectorId" />
+    </Key>
+    <Property Name="DirectorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GenreMovies">
+    <Key>
+      <PropertyRef Name="Genre_GenreId" />
+      <PropertyRef Name="Movie_MovieId" />
+    </Key>
+    <Property Name="Genre_GenreId" Type="int" Nullable="false" />
+    <Property Name="Movie_MovieId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Genres">
+    <Key>
+      <PropertyRef Name="GenreId" />
+    </Key>
+    <Property Name="GenreId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="300" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Movies">
+    <Key>
+      <PropertyRef Name="MovieId" />
+    </Key>
+    <Property Name="MovieId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DirectorId" Type="int" Nullable="false" />
+    <Property Name="YearRangeId" Type="int" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Price" Type="float" Nullable="false" />
+    <Property Name="Year" Type="int" Nullable="false" />
+    <Property Name="Rating" Type="int" Nullable="false" />
+    <Property Name="MoviePosterURL" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="YearRanges">
+    <Key>
+      <PropertyRef Name="YearRangeId" />
+    </Key>
+    <Property Name="YearRangeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Range" Type="nvarchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_dbo_GenreMovies_dbo_Genres_Genre_GenreId">
+    <End Role="Genres" Type="Self.Genres" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="GenreMovies" Type="Self.GenreMovies" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Genres">
+        <PropertyRef Name="GenreId" />
+      </Principal>
+      <Dependent Role="GenreMovies">
+        <PropertyRef Name="Genre_GenreId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_GenreMovies_dbo_Movies_Movie_MovieId">
+    <End Role="Movies" Type="Self.Movies" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="GenreMovies" Type="Self.GenreMovies" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Movies">
+        <PropertyRef Name="MovieId" />
+      </Principal>
+      <Dependent Role="GenreMovies">
+        <PropertyRef Name="Movie_MovieId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Movies_dbo_Directors_DirectorId">
+    <End Role="Directors" Type="Self.Directors" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Movies" Type="Self.Movies" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Directors">
+        <PropertyRef Name="DirectorId" />
+      </Principal>
+      <Dependent Role="Movies">
+        <PropertyRef Name="DirectorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Movies_dbo_YearRanges_YearRangeId">
+    <End Role="YearRanges" Type="Self.YearRanges" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Movies" Type="Self.Movies" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="YearRanges">
+        <PropertyRef Name="YearRangeId" />
+      </Principal>
+      <Dependent Role="Movies">
+        <PropertyRef Name="YearRangeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Directors" EntityType="Self.Directors" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GenreMovies" EntityType="Self.GenreMovies" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Genres" EntityType="Self.Genres" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Movies" EntityType="Self.Movies" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="YearRanges" EntityType="Self.YearRanges" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_dbo_GenreMovies_dbo_Genres_Genre_GenreId" Association="Self.FK_dbo_GenreMovies_dbo_Genres_Genre_GenreId">
+      <End Role="Genres" EntitySet="Genres" />
+      <End Role="GenreMovies" EntitySet="GenreMovies" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_GenreMovies_dbo_Movies_Movie_MovieId" Association="Self.FK_dbo_GenreMovies_dbo_Movies_Movie_MovieId">
+      <End Role="Movies" EntitySet="Movies" />
+      <End Role="GenreMovies" EntitySet="GenreMovies" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Movies_dbo_Directors_DirectorId" Association="Self.FK_dbo_Movies_dbo_Directors_DirectorId">
+      <End Role="Directors" EntitySet="Directors" />
+      <End Role="Movies" EntitySet="Movies" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Movies_dbo_YearRanges_YearRangeId" Association="Self.FK_dbo_Movies_dbo_YearRanges_YearRangeId">
+      <End Role="YearRanges" EntitySet="YearRanges" />
+      <End Role="Movies" EntitySet="Movies" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

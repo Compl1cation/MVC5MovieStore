@@ -1,0 +1,34 @@
+﻿@model IEnumerable<MVC5MovieStore.Models.Director>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Directors</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @id = "actionp" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.DirectorId }, new { @id = "actionp" }) |
+            @Html.ActionLink("Details", "Details", new { id = item.DirectorId }, new { @id = "actionp" }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.DirectorId }, new { @id = "actionp" })
+        </td>
+    </tr>
+}
+
+</table>

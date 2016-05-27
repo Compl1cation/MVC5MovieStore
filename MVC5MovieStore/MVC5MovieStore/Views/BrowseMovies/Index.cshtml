@@ -1,0 +1,95 @@
+﻿@model IEnumerable<MVC5MovieStore.Models.Movie>
+@using System.Data.Entity;
+@using System.Linq;
+@{
+    ViewBag.Title = "Browse Movies";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+  }
+
+
+<div id="filters">
+    @using (Html.BeginForm("Index", "BrowseMovies", null, FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+    <label id="filtlabel">Filter Options</label>
+        <ul id="filtersul"> 
+            <li id="filtersli">
+                Year<br />
+                @Html.DropDownList("Year", null, "Select Year:", new { @class = "custom-select" })
+            </li>
+            <li id="filtersli">
+                Rating<br />
+                @Html.DropDownList("Rating", null, "Select Rating:", new { @class = "custom-select" })
+            </li>
+            <li id="filtersli">
+                Genres<br />
+                @Html.DropDownList("Genre", null, "Select Genre:", new { @class = "custom-select" })
+            </li>
+            <li><input type="submit" value="Filter" class="btn btn-default" /></li>
+        </ul>
+
+
+    }
+</div>
+
+    <!--search -->
+<div class="panel panel-default">
+    <div class="panel-body">
+        @using (Ajax.BeginForm("MovieSearch", "Home", new AjaxOptions
+                        {
+                            InsertionMode = InsertionMode.Replace,
+                            HttpMethod = "GET",
+                            OnFailure = "searchFailed",
+                            LoadingElementId = "ajax-loader",
+                            UpdateTargetId = "searchResults",
+                        }))
+        {
+            <input type="text" name="q" />
+            <input type="submit" value="Search" />
+
+            <img id="ajax-loader" src="@Url.Content("~/Content/Images/ajax-loader.gif")" style="display:none" />
+        }
+        <div id="searchResults"></div>
+    </div>
+</div>
+<!--search -->
+
+<h2 id="welcome">Browse Movies</h2>
+<div id="content">
+
+    <div id="wrapper2">
+        @foreach (var item in Model)
+        {
+            <div id="moviebox">
+                <dl id="movieboxUl">
+                    @if (item.Files.Any(f => f.FileType == FileType.Poster))
+                    {
+
+                        <dt id="center">
+                            <img src="~/File?id=@item.Files.First( f => f.FileType == FileType.Poster).FileId" alt="poster" id="posterimg" />
+                        </dt>
+                    }
+                    <dt id="title">
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </dt>
+                    <dt id="boxp">
+                        @Html.Raw("Price:  $")@Html.DisplayFor(modelItem => item.Price)
+                    </dt>
+                    <dt id="boxp">
+                        @Html.Raw("Rating: ")
+                        @Html.DisplayFor(modelItem => item.Rating)@Html.Raw("/10")
+                    </dt>
+
+
+
+                </dl>
+                <div id="addcartDiv">
+                    <a class="addCart" href="@Url.Action("Details", "BrowseMovies", new { id = Html.AttributeEncode(item.MovieId)} )" title="Details">Details<span class="glyphicon glyphicon-info-sign"></span></a>
+                    <br />
+                    <a class="addCart" href="@Url.Action("AddToCart", "ShoppingCart", new { id = Html.AttributeEncode(item.MovieId)} )" title="Add to Cart">Add to Cart<span class="glyphicon glyphicon-shopping-cart"></span></a>
+                </div>
+            </div>
+
+        }
+    </div>
+</div>

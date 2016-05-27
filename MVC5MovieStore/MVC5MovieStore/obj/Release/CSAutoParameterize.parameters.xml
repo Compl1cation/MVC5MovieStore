@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="MovieStoreDB-Web.config Connection String" description="MovieStoreDB Connection String used in web.config by the application to access the database." defaultValue="Data Source=(localdb)\v11.0; Initial Catalog=MovieStoreDB-20150819040939; Integrated Security=True; MultipleActiveResultSets=True; AttachDbFilename=|DataDirectory|MovieStoreDB-20150819040939.mdf" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\NForcer\\Desktop\\MVC\ 5\ Movie\ Store\\MVC5MovieStore\\MVC5MovieStore\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='MovieStoreDB']/@connectionString" />
+  </parameter>
+</parameters>

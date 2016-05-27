@@ -1,0 +1,24 @@
+﻿
+<div id="filters">
+    @using (Html.BeginForm("Index", "BrowseMovies", null, FormMethod.Post))
+    {
+
+        @Html.AntiForgeryToken()
+
+        <h4>Filter Options</h4>
+
+        <label>Year</label>
+        <br />
+        @Html.DropDownList("Years", null, "Select an year", new { @class = "custom-select" }) <br /><br />
+
+        <label>Genres</label>
+        <br />
+        @Html.DropDownList("Genres", null, "Select a genre", new { @class = "custom-select" })<br /><br />
+
+        <label>Rating</label>
+        <br />
+        @Html.DropDownList("Ratings", null, "Select a rating", new { @class = "custom-select" })<br /><br />
+
+        <input type="submit" value="Filter" class="btn btn-default" />
+    }
+</div>

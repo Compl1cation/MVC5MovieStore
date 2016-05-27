@@ -1,0 +1,19 @@
+﻿@model IEnumerable<MVC5MovieStore.Models.YearRange>
+@using System.Data.Entity;
+@using System.Linq;
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Browse by years:</h2>
+
+@{
+    foreach (var year in Model)
+    {
+
+            @Html.ActionLink(@year.Range, "Details", new { id = year.YearRangeId }, new {@class="links"})<br />
+
+    }
+}

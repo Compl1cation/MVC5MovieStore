@@ -1,0 +1,82 @@
+﻿@model IEnumerable<MVC5MovieStore.Models.Movie>
+
+@{
+    ViewBag.Title = "Index";
+    SortingInfo info = ViewBag.SortingInfo;
+}
+
+<script src="/Scripts/jquery-1.4.4.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="@Url.Content("/Scripts/MyScripts.js")"></script>
+
+
+<h2>Store Manager</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+
+@using (Html.BeginForm("Index", "StoreManager", FormMethod.Post))
+{
+    @Html.Hidden("SortField", info.SortField)
+    @Html.Hidden("SortDirection", info.SortDirection)
+    @Html.Hidden("PageCount", info.PageCount)
+    @Html.Hidden("PageSize", info.PageSize)
+    @Html.Hidden("CurrentPageIndex", info.CurrentPageIndex)
+
+    <table class="table">
+        <tr>
+            <th>
+                <a href="#" data-sortfield="Title" class="header">Title</a>
+            </th>
+            <th>
+                <a href="#" data-sortfield="Director" class="header">Director</a>
+            </th>
+            <th>
+                <a href="#" data-sortfield="Year" class="header">Year</a>
+            </th>
+            <th>
+                <a href="#" data-sortfield="YearRange" class="header">Year Range</a>
+            </th>
+            <th>
+                <a href="#" data-sortfield="Price" class="header">Price</a>
+            </th>
+            <th>
+                <a href="#" data-sortfield="Rating" class="header">Rating</a>
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr id="trp">
+                <td>@item.Title</td>
+                <td>@item.Director.Name</td>
+                <td>@item.Year</td>
+                <td>@item.YearRange.Range</td>
+                <td>@item.Price</td>
+                <td>@item.Rating</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.MovieId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.MovieId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.MovieId }) |
+                    @Html.ActionLink("Add to cart", "AddToCart", "ShoppingCart", new { id = item.MovieId }, "")
+                </td>
+
+            </tr>
+        }
+        <tr>
+    </table>
+    
+    for (var i = 0; i < info.PageCount; i++)
+    {
+        if (i == info.CurrentPageIndex)
+        {
+            <span id="inline">@(i + 1)</span> @Html.Raw(" | ")
+        }
+        else
+        { 
+            <a href="#" data-pageindex="@i" class="pager" id="inline">@(i + 1)</a>@Html.Raw(" | ")
+           
+        }
+    }
+
+}

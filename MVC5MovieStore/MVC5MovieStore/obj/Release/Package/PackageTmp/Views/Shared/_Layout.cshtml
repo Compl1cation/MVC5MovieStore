@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Movie Store</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"> </script>
+
+</head>
+<body>
+
+    <div id="headernavmenu" class="container-fluid">
+        <div id="header" class="row">
+            <img src="http://s24.postimg.org/4ru4vqifp/Welcome.jpg" >
+            <img src="https://cdn3.iconfinder.com/data/icons/block/32/film_clapper-512.png" id="menuimage" class="img-responsive">
+            <ul class="right" id="login">
+                <li><a class="menu1" href="@Url.Action("Index","ShoppingCart")"><span class="glyphicon glyphicon-shopping-cart" id="margin"></span> Shopping Cart</a></li>
+            @if (!User.Identity.IsAuthenticated)
+            {
+                 <li><a class="menu1" href="@Url.Action("Register","Account")"><span class="glyphicon glyphicon-user" id="margin"></span> Sign Up</a></li>
+                 <li><a class="menu1" href="@Url.Action("Login","Account")"><span class="glyphicon glyphicon-log-in" id="margin"></span> Login</a></li>
+
+             }
+             @if (User.Identity.IsAuthenticated)
+                {
+                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post,new { id = "logoutForm" }))
+                    {
+                    @Html.AntiForgeryToken()                        
+                    <li><a class="menu1" href="javascript:document.getElementById('logoutForm').submit()"><span class="glyphicon glyphicon-log-out" id="margin"></span>Log Out</a></li>
+                    <li><p id="footp">Welcome @User.Identity.Name !</p></li>
+                }
+                }
+
+
+            </ul>
+        </div>
+        <div id="navdiv" class="row">
+                <dl class="middlemenu">
+                    <dt id="dtmenu">
+                        <a class="menu1" href="@Url.Action("Index","BrowseMovies")" title="Movies">Movies<span class="glyphicon glyphicon-film"></span></a>
+                    </dt>
+                    <dt id="dtmenu">
+                        <a class="menu1" href="@Url.Action("Index","BrowseDirectors")" title="Directors">Directors<span class="glyphicon glyphicon-user"></span></a>
+                    </dt>
+                    <dt id="dtmenu">
+                        <a class="menu1" href="@Url.Action("Index","BrowseYearRanges")" title="Years">Years<span class="glyphicon glyphicon-calendar"></span></a>
+                    </dt>
+                    <dt id="dtmenu">
+                        <a class="menu1" href="@Url.Action("About","BrowseMovies")" title="About">About<span class="glyphicon glyphicon-info-sign"></span></a>
+                    </dt>
+                </dl>
+
+            </div>
+    </div>
+
+    <div id="container">
+     <div id="wrapper">
+
+         @if (User.Identity.IsAuthenticated && (User.IsInRole("MasterAdmin")|| (User.IsInRole("ContentAdmin"))))
+         {<div id="admindiv">
+             @Html.ActionLink("Store Manager", "Index", "StoreManager")<br />
+             @Html.ActionLink("Genre Manager", "Index", "GenreManager")<br />
+             @Html.ActionLink("Director Manager", "Index", "DirectorManager")<br />
+             @Html.ActionLink("Year Range Manager", "Index", "YearRangeManager")<br />
+              @if (User.Identity.IsAuthenticated &&  (User.IsInRole("MasterAdmin") ))
+              { 
+             @Html.ActionLink("User Manager", "Index", "UserManager") <br />
+             @Html.ActionLink("Role Manager", "Index", "RoleManager")<br />
+             }
+         </div>
+         }
+
+                    @RenderBody()
+
+        </div>
+    </div>
+
+    <footer id="footer">
+        <p class="center" id="footp">Made with ASP .NET MVC5 
+        <br />by D. Rusinov
+         <br />All rights reserved. @DateTime.Now.Year </p>
+    </footer>
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+
+</body>
+</html>

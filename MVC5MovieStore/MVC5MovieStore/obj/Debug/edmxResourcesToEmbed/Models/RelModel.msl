@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
+    <EntitySetMapping Name="C__MigrationHistory">
+      <EntityTypeMapping TypeName="Model.C__MigrationHistory">
+        <MappingFragment StoreEntitySet="__MigrationHistory">
+          <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+          <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Directors">
+      <EntityTypeMapping TypeName="Model.Directors">
+        <MappingFragment StoreEntitySet="Directors">
+          <ScalarProperty Name="DirectorId" ColumnName="DirectorId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Genres">
+      <EntityTypeMapping TypeName="Model.Genres">
+        <MappingFragment StoreEntitySet="Genres">
+          <ScalarProperty Name="GenreId" ColumnName="GenreId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Movies">
+      <EntityTypeMapping TypeName="Model.Movies">
+        <MappingFragment StoreEntitySet="Movies">
+          <ScalarProperty Name="MovieId" ColumnName="MovieId" />
+          <ScalarProperty Name="DirectorId" ColumnName="DirectorId" />
+          <ScalarProperty Name="YearRangeId" ColumnName="YearRangeId" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Rating" ColumnName="Rating" />
+          <ScalarProperty Name="MoviePosterURL" ColumnName="MoviePosterURL" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="YearRanges">
+      <EntityTypeMapping TypeName="Model.YearRanges">
+        <MappingFragment StoreEntitySet="YearRanges">
+          <ScalarProperty Name="YearRangeId" ColumnName="YearRangeId" />
+          <ScalarProperty Name="Range" ColumnName="Range" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="GenreMovies" TypeName="Model.GenreMovies" StoreEntitySet="GenreMovies">
+      <EndProperty Name="Genres">
+        <ScalarProperty Name="GenreId" ColumnName="Genre_GenreId" />
+      </EndProperty>
+      <EndProperty Name="Movies">
+        <ScalarProperty Name="MovieId" ColumnName="Movie_MovieId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

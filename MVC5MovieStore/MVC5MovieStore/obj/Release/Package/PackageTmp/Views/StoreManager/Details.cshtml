@@ -1,0 +1,89 @@
+﻿@model MVC5MovieStore.Models.Movie
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Movie</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        
+        @if (Model.Files.Any(f => f.FileType == FileType.Poster)){
+        <dt>
+            Poster
+        </dt>
+        <dd>
+            <img src="~/File?id=@Model.Files.First( f=> f.FileType == FileType.Poster).FileId" alt="poster" id="poster" />
+        </dd>
+        }
+
+        <dt>
+            Director
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Director.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.YearRange.Range)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.YearRange.Range)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Year)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rating)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rating)
+        </dd>
+
+
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.Genres)
+        </dt>
+        <dd>
+            @foreach (var genre in Model.Genres)
+            {
+               
+                @Html.DisplayFor(Genres => genre.Name)
+                @Html.Raw(" | ")
+            }
+        </dd>
+</dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MovieId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,15 @@
+﻿@model IEnumerable<MVC5MovieStore.Models.Director>
+@using System.Data.Entity;
+@using System.Linq;
+
+<div id="searchResults">
+    <dl>
+        @foreach (var item in Model)
+        {
+            <dt>
+                <a href="@Url.Action("Details","BrowseDirectors",new {id = item.DirectorId})">@item.Name</a>
+            </dt>
+        }
+
+    </dl>
+</div>
