@@ -137,7 +137,7 @@ namespace MVC5MovieStore.Models
                     Quantity = item.Count
                 };
                 // Set the order total of the shopping cart
-                orderTotal += (item.Count * item.Movie.Price);
+                orderTotal += (double)(item.Count * item.Movie.Price);
  
                 storeDB.OrderDetails.Add(orderDetail);
  

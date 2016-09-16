@@ -9,6 +9,7 @@ namespace MVC5MovieStore.Models
 {
     public enum FileType
     {
-       Poster = 1, Photo
+       Poster = 1,
+       Photo
     }
 }

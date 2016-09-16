@@ -21,7 +21,7 @@ namespace MVC5MovieStore.Controllers
             SortingInfo info = new SortingInfo();
             info.SortField = "Title";
             info.SortDirection = "descending";
-            info.PageSize = 10;
+            info.PageSize = 5;
             info.PageCount = Convert.ToInt32(Math.Ceiling((double)(db.Movies.Count() / info.PageSize)));
             info.CurrentPageIndex = 0;
 

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
+﻿using System.Data.Entity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace MVC5MovieStore.Models
@@ -16,27 +12,28 @@ namespace MVC5MovieStore.Models
         // For more information refer to the documentation:
         // http://msdn.microsoft.com/en-us/data/jj591621.aspx
     
-        public MovieStoreDB() : base("name=MovieStoreDB")
+        public MovieStoreDB() : base("name=MovieStoreDB", throwIfV1Schema: false)
         {
+       
         }
 
-        public System.Data.Entity.DbSet<MVC5MovieStore.Models.Movie> Movies { get; set; }
+        public DbSet<Movie> Movies { get; set; }
 
-        public System.Data.Entity.DbSet<MVC5MovieStore.Models.Director> Directors { get; set; }
+        public DbSet<Director> Directors { get; set; }
 
-        public System.Data.Entity.DbSet<MVC5MovieStore.Models.YearRange> YearRanges { get; set; }
+        public DbSet<YearRange> YearRanges { get; set; }
 
-        public System.Data.Entity.DbSet<MVC5MovieStore.Models.Genre> Genres { get; set; }
+        public DbSet<Genre> Genres { get; set; }
 
-        public System.Data.Entity.DbSet<MVC5MovieStore.Models.CartItem> ShoppingCartItems { get; set; }
+        public DbSet<CartItem> ShoppingCartItems { get; set; }
         
-        public System.Data.Entity.DbSet<MVC5MovieStore.Models.Cart> Carts { get; set; }
+        public DbSet<Cart> Carts { get; set; }
 
-        public System.Data.Entity.DbSet<MVC5MovieStore.Models.Order> Orders { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
-        public System.Data.Entity.DbSet<MVC5MovieStore.Models.OrderDetail> OrderDetails { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
 
-        public System.Data.Entity.DbSet<MVC5MovieStore.Models.File> Files { get; set; }
+        public DbSet<File> Files { get; set; }
  
     }
 }

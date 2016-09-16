@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a5459d9cefa244349e22b67c96a3f2bc" Name="Diagram1">
+        <EntityTypeShape EntityType="FurnitureFactoryDBModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FurnitureFactoryDBModel.FurnitureOrder" Width="1.5" PointX="9.625" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FurnitureFactoryDBModel.Order" Width="1.5" PointX="5.5" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="FurnitureFactoryDBModel.Product" Width="1.5" PointX="7.5" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FurnitureFactoryDBModel.Role" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FurnitureFactoryDBModel.UserClaim" Width="1.5" PointX="0.625" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FurnitureFactoryDBModel.UserLogin" Width="1.5" PointX="5.25" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FurnitureFactoryDBModel.User" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <AssociationConnector Association="FurnitureFactoryDBModel.FK_dbo_FurnitureOrders_dbo_Orders_OrderId" ManuallyRouted="false" />
+        <AssociationConnector Association="FurnitureFactoryDBModel.FK_dbo_FurnitureOrders_dbo_Products_FurnitureId" ManuallyRouted="false" />
+        <AssociationConnector Association="FurnitureFactoryDBModel.FK_dbo_Orders_dbo_Users_Client_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="FurnitureFactoryDBModel.FK_dbo_UserClaims_dbo_Users_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="FurnitureFactoryDBModel.FK_dbo_UserLogins_dbo_Users_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="FurnitureFactoryDBModel.ProductOrders" ManuallyRouted="false" />
+        <AssociationConnector Association="FurnitureFactoryDBModel.UserRoles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -18,16 +18,16 @@ namespace MVC5MovieStore.Controllers
         public ActionResult Search(string q)
         {
             var movies = GetMovies(q);
-            return PartialView(movies);
+            return PartialView("_MovieSearch",movies);
         }
 
         private IEnumerable<Movie> GetMovies(string searchString)
         {
-            IEnumerable<Movie> movs =db.Movies
+            IEnumerable<Movie> movs = db.Movies
                .Include("Director")
                .Include("Year")
-           .Where(a => a.Title.Contains(searchString)).ToList().Take(5);
-            return (movs.Take(5));
+           .Where(a => a.Title.Contains(searchString) || a.Director.Name.Contains(searchString) || a.Year.ToString().Contains(searchString)).ToList().Take(5);
+            return (movs);
         }
 	}
 }

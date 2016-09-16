@@ -39,11 +39,11 @@ namespace MVC5MovieStore.Models
             public string City { get; set; }
             [Required(ErrorMessage = "State is required")]
             [StringLength(40)]
-            [RegularExpression(@"[A-Z][a-zA-Z\-\s]*", ErrorMessage = "Not a valid Phone state, please try again.")]
+            [RegularExpression(@"[A-Z][a-zA-Z\-\s]*", ErrorMessage = "Not a valid State, please try again.")]
             public string State { get; set; }
             [Required(ErrorMessage = "Postal Code is required")]
             [StringLength(10)]
-            [RegularExpression(@"[A-Za-z0-9\s]*", ErrorMessage="Not a valid postal Code, please try again.")]
+            [RegularExpression(@"[A-Za-z0-9\s]*", ErrorMessage="Not a valid Postal Code, please try again.")]
             public string PostalCode { get; set; }
             [Required(ErrorMessage = "Country is required")]
             [StringLength(40)]

@@ -11,6 +11,7 @@ using MVC5MovieStore.Models;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using MVC5MovieStore.CustomFilters;
+using Antlr.Runtime;
 
 namespace MVC5MovieStore.Controllers
 {
@@ -27,8 +28,9 @@ namespace MVC5MovieStore.Controllers
             SortingInfo info = new SortingInfo();
             info.SortField = "Title";
             info.SortDirection = "descending";
-            info.PageSize = 20;
-            info.PageCount = Convert.ToInt32(Math.Ceiling((double)(db.Movies.Count()/ info.PageSize)));
+            info.PageSize = 5;
+            var movieCount = db.Movies.Count();
+            info.PageCount = (int)(Math.Ceiling(((movieCount / (double)info.PageSize))));
             info.CurrentPageIndex = 0;
 
             var movies = db.Movies.Include(m => m.Director).Include(m => m.YearRange).OrderBy(m => m.Title).Take(info.PageSize);
@@ -214,6 +216,7 @@ var movieToUpdate = db.Movies
 .Include(i => i.YearRange)
 .Where(i=> i.MovieId == id)
 .Single();
+
 
 if (TryUpdateModel (movieToUpdate, "",
 	new string [] {"DirectorId", "Title","Genre", "Price","Rating","Year","YearRangeId" }))

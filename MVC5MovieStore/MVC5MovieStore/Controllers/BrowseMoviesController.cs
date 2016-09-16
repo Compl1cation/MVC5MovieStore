@@ -4,14 +4,9 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using MVC5MovieStore.Models;
 using MVC5MovieStore.ViewModels;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using MVC5MovieStore.CustomFilters;
-using System.Web.Mvc.Html;
 
 namespace MVC5MovieStore.Controllers
 {
@@ -36,8 +31,9 @@ namespace MVC5MovieStore.Controllers
 
        filt.SortField = "Title";
        filt.SortDirection = "descending";
-       filt.PageSize = 25;
-       filt.PageCount = Convert.ToInt32(Math.Ceiling((double)(db.Movies.Count() / filt.PageSize)));
+       filt.PageSize = 5;
+       var movCnt = db.Movies.Count();
+       filt.PageCount = (int)Math.Ceiling((movCnt / (double)filt.PageSize));
        filt.CurrentPageIndex = 0;
 
        var movies = db.Movies
@@ -48,10 +44,9 @@ namespace MVC5MovieStore.Controllers
            
        ViewBag.SortingInfo = filt;
 
-       return View(movies.ToList());
+            return View(movies.ToList());
      }
 
-  [ValidateAntiForgeryToken]
   [HttpPost]
   public ActionResult Index([Bind(Include ="Year, Rating, Genre")]FiltInfo filt)
       {
@@ -88,11 +83,14 @@ namespace MVC5MovieStore.Controllers
 
         ViewBag.SortingInfo = filt;
         IEnumerable<Movie> model = genremovie.Movies;
-      
-      return View(model);
-    }
+            model = model.Skip(filt.CurrentPageIndex * filt.PageSize).Take(filt.PageSize).ToList();
+            ViewBag.SortingInfo = filt;
 
- public ActionResult Details(int? id)
+            return View(model);
+    }
+        [Route("BrowseMovies/Details/{id}")]
+
+        public ActionResult Details(int? id)
      {
       if (id == null)
        {
@@ -120,6 +118,24 @@ namespace MVC5MovieStore.Controllers
      ViewBag.Message = "Hello from about";
      return View();
  }
+
+        public ActionResult MovieSearch(string q)
+        {
+            var movies = GetMovies(q);
+            return PartialView("_MovieSearch", movies);
+        }
+
+        private IEnumerable<Movie> GetMovies(string searchString)
+        {
+            IEnumerable<Movie> movs = db.Movies
+                .Include(m => m.Director)
+                .Include(m => m.Genres)
+            .Where(a => a.Title.Contains(searchString) ||
+            a.Director.Name.Contains(searchString) ||
+            a.Year.ToString().Contains(searchString)
+            ).Take(5).ToList();
+            return (movs);
+        }
 
     }
 }

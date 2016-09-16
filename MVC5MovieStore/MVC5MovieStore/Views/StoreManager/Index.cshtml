@@ -70,7 +70,7 @@
     {
         if (i == info.CurrentPageIndex)
         {
-            <span id="inline">@(i + 1)</span> @Html.Raw(" | ")
+            <span id="inline" class="pagination">@(i + 1)</span> @Html.Raw(" | ")
         }
         else
         { 
@@ -78,5 +78,4 @@
            
         }
     }
-
 }

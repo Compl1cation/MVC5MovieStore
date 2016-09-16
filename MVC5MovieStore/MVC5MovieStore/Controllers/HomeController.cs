@@ -32,18 +32,6 @@ namespace MVC5MovieStore.Controllers
 
             return View();
         }
-        
-        public ActionResult MovieSearch(string q)
-        {
-            var movies = GetMovies(q);
-            return PartialView(movies);
-        }
 
-        private List<Movie> GetMovies(string searchString)
-        {
-            return db.Movies
-                .Where(a => a.Title.Contains(searchString))
-                .ToList();
-        }
     }
 }

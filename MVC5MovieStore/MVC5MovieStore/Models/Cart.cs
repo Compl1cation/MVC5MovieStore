@@ -14,7 +14,10 @@ namespace MVC5MovieStore.Models
         public string CartId { get; set; }
         public int MovieId { get; set; }
         public int Count { get; set; }
-        public System.DateTime DateCreated { get; set; }
-        public virtual Movie Movie{ get; set; }
+        public DateTime DateCreated { get; set; }
+        public virtual Movie Movie { get; set; }
     }
+
+
+
 }

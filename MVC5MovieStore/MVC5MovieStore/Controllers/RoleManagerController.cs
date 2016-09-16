@@ -57,7 +57,6 @@ namespace MVC5MovieStore.Controllers
             return View(role);
         }
         [AuthLog(Roles = "MasterAdmin")]
-        [ValidateAntiForgeryToken]
         public ActionResult Delete(string id)
         {
             if (id == null)
